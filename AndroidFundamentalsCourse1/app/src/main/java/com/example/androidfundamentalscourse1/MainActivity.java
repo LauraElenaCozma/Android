@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Spinner spinnerAndroidVersions;
     private List<Email> emails;
     private RecyclerView recyclerViewEmails;
+    private final Object TAG = MainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +76,46 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setupSpinnerAdapter();*/
 
         //run RecyclerView sample
-        setContentView(R.layout.views_sample_recycler_view);
-        displayEmailsList();
+        /*setContentView(R.layout.views_sample_recycler_view);
+        displayEmailsList();*/
 
+        int result = sum(10, 5, 4);
+        Logging.show("MainActivity result = ", result + "");
+        result++;
+
+        setContentView(R.layout.activity_main);
+        Logging.show(TAG, "onCreate");
+    }
+
+    private int sum(int a, int b, int c) {
+        int result = a / b;
+        return result + c;
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Logging.show(TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Logging.show(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Logging.show(TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logging.show(TAG, "onStop");
     }
 
     private ArrayAdapter<String> getSpinnerAdapter() {
@@ -229,5 +268,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         inbox();
         setEmailsLayoutManager();
         setEmailsAdapter();
+    }
+
+    public void buttonOpenSecondActivityOnClick(View view) {
+        Intent secondActivity = new Intent(MainActivity.this, SecondActivity.class);
+        startActivity(secondActivity);
     }
 }
