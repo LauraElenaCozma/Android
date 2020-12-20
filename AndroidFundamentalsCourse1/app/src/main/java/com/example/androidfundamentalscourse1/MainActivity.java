@@ -1,10 +1,12 @@
 package com.example.androidfundamentalscourse1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,10 +41,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private List<Email> emails;
     private RecyclerView recyclerViewEmails;
     private final Object TAG = MainActivity.this;
-
+    public final String MESSAGE_KEY = "message";
+    private EditText editTextMessage;
+    public final int REQUEST_CODE_MESSAGE = 12;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        editTextMessage = findViewById(R.id.editTextSecondActivity);
         //seteaza layout-ul asociat activitatii MainActivity
         //setContentView(R.layout.activity_main);
         //asociem views_sample_1
@@ -272,6 +277,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void buttonOpenSecondActivityOnClick(View view) {
         Intent secondActivity = new Intent(MainActivity.this, SecondActivity.class);
+        secondActivity.putExtra(MESSAGE_KEY, getString(R.string.hello_activity));
         startActivity(secondActivity);
     }
+
+    public void buttonCommunicationBetweenActivitiesOnClick(View view) {
+        Intent secondActivity = new Intent(MainActivity.this, SecondActivity.class);
+        String message = editTextMessage.getText().toString();
+        /*if(message != null && message.length() > 0)
+        {
+            secondActivity.putExtra(MESSAGE_KEY, message);
+        }
+        else {
+            editTextMessage.setError(getString(R.string.error_message), REQUEST_CODE_MESSAGE);
+
+        }*/
+
+    }
+
+    public void buttonStartFormActivity(View view) {
+        Intent formActivity = new Intent(MainActivity.this, FormActivity.class);
+        startActivity(formActivity);
+    }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_MESSAGE && resultCode == RESULT_OK) {
+            String result = data.getStringExtra(MESSAGE_KEY);
+            Logging.show(TAG, result);
+        }
+    }*/
 }

@@ -17,6 +17,17 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         onInitViews();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            String message = extras.getString("message");
+            textViewTop.setText(message);
+            /*message = "Message received. it's working";
+            Intent intent = new Intent();
+            intent.putExtra("message", message);
+            setResult(RESULT_OK, intent);
+            finish();*/
+        }
         Logging.show(TAG, "onCreate");
 
     }
